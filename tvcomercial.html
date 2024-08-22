@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="refresh" content="1800" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <title>Indicadores GC - Power Portal</title>
+        <link rel="shortcut icon" href="https://www.powerportal.com.br/img/favicon.png"> 
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                font-family: Verdana, sans-serif;
+                height: 100%;
+                overflow: hidden;
+                background-color: #FFFFFF;
+            }
+            .mySlides {
+                display: none;
+            }
+            iframe {
+                vertical-align: center;
+                width: 100%;
+                height: 95vh; /* Aumenta a altura para quase ocupar toda a tela */
+            }
+            .slideshow-container {  
+                max-width: 100%;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                margin: auto;
+                margin-top: -12px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slideshow-container">
+            <iframe class="mySlides" src="https://app.powerbi.com/view?r=eyJrIjoiY2U5OGVmZDItMjNiYy00ZThjLWIwNTktZjMwNzc5OGIwY2JkIiwidCI6IjZkOWMyYzg0LTRkMjQtNDc3MC04MWE5LTdjZjg0ZmEyNDMwZCJ9&pageName=ReportSection1dc50c032a19a26803b4" frameborder="0" allowFullScreen="true"></iframe>
+            <iframe class="mySlides" src="https://app.powerbi.com/view?r=eyJrIjoiY2U5OGVmZDItMjNiYy00ZThjLWIwNTktZjMwNzc5OGIwY2JkIiwidCI6IjZkOWMyYzg0LTRkMjQtNDc3MC04MWE5LTdjZjg0ZmEyNDMwZCJ9&pageName=ReportSectione3cd9c1c09aa9410039d" frameborder="0" allowFullScreen="true"></iframe>
+            <iframe class="mySlides" src="https://app.powerbi.com/view?r=eyJrIjoiY2U5OGVmZDItMjNiYy00ZThjLWIwNTktZjMwNzc5OGIwY2JkIiwidCI6IjZkOWMyYzg0LTRkMjQtNDc3MC04MWE5LTdjZjg0ZmEyNDMwZCJ9&pageName=ReportSection105c4019e48dc52a7222" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+
+        <script>
+            var slideIndex = 0;
+            showSlides();
+
+            function showSlides() {    
+                var i;    
+                var slides = document.getElementsByClassName("mySlides"); 
+
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";    
+                }    
+
+                if (slideIndex >= slides.length) {
+                    slideIndex = 0;
+                }    
+
+                slides[slideIndex].style.display = "block";
+
+                setTimeout(showSlides, 20000); /* Tempo de exibição por slide (20 segundos) */
+                slideIndex++; 
+            }
+        </script>
+    </body>
+</html>
