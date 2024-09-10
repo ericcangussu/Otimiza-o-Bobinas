@@ -1,39 +1,49 @@
-name: Update HTML and Deploy
+name: Build and Deploy
 
 on:
+  push:
+    branches:
+      - main
   schedule:
-    # Executar às 6:00, 12:00 e 18:00 UTC
-    - cron: "0 6,12,18 * * *"
-  workflow_dispatch: # Permite executar manualmente também
+    - cron: '0 6,12,18 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Check out repository
+    - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-
+    
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run script to update HTML
+    # Aqui criamos o arquivo config.json usando os segredos
+    - name: Create config.json
       run: |
-        python project.py
+        echo '{
+          "share_point": {
+            "user": "'${{ secrets.SHAREPOINT_USER }}'",
+            "password": "'${{ secrets.SHAREPOINT_PASSWORD }}'",
+            "url": "'${{ secrets.SHAREPOINT_URL }}'",
+            "doc_library": "'${{ secrets.SHAREPOINT_DOC_LIBRARY }}'"
+          }
+        }' > config.json
 
-    - name: Commit and Push Changes
+    - name: Run Python script
+      run: python project.py
+
+    - name: Commit and push changes
       run: |
-        git config --local user.email "you@example.com"
-        git config --local user.name "GitHub Action"
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
         git add .
         git commit -m "Auto update HTML"
-        git push origin main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        git push
