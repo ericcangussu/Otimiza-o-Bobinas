@@ -1,15 +1,18 @@
 from sharepoint import SharePoint
 import os
 
-# Configurações
-folder_name = 'TV'  # Nome da pasta no SharePoint
-output_folder = "images"  # Pasta para salvar as imagens localmente
+# Carregar as variáveis de ambiente
+sharepoint_user = os.getenv("SHAREPOINT_USER")
+sharepoint_password = os.getenv("SHAREPOINT_PASSWORD")
+sharepoint_url = os.getenv("SHAREPOINT_URL")
+folder_name = os.getenv("SHAREPOINT_FOLDER_NAME", "TV")  # Nome da pasta no SharePoint, com valor padrão
+output_folder = os.getenv("OUTPUT_FOLDER", "images")  # Pasta para salvar as imagens localmente, com valor padrão
 
 # Criar a pasta se não existir
 os.makedirs(output_folder, exist_ok=True)
 
-# Instancia a classe SharePoint
-sp = SharePoint()
+# Instancia a classe SharePoint, passando as credenciais do usuário
+sp = SharePoint(user=sharepoint_user, password=sharepoint_password, url=sharepoint_url)
 
 # Lista todos os arquivos na pasta especificada
 files = sp.list_files(folder_name)
@@ -21,7 +24,7 @@ image_tags = []
 for file_name in files:
     if file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
         print(f"Downloading {file_name}...")
-        
+
         # Baixar o arquivo
         file_content = sp.download_file(file_name, folder_name)
 
@@ -30,7 +33,7 @@ for file_name in files:
         with open(image_path, 'wb') as f:
             f.write(file_content)
         print(f"{file_name} downloaded successfully.")
-        
+
         # Adiciona a tag img ao HTML
         image_tag = f'<img class="mySlides" src="{output_folder}/{file_name}" alt="{file_name.split(".")[0]}">'
         image_tags.append(image_tag)
