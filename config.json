@@ -3,8 +3,8 @@
 {
   "share_point": 
       {
-          "user": "eric.martins@tehokas.com.br",
-          "password": "Binaarea123",
+          "user": USER,
+          "password": PASSWORD,
           "url": "https://solucoestehokas.sharepoint.com",
           "site": "https://solucoestehokas.sharepoint.com/sites/Blutrafos_GestoCompartilhada",
           "doc_library": "Documentos%20Compartilhados/General" 
